@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Chat</title>
+</head>
+
+<body>
+
+<h2>AI Chat</h2>
+
+<input id="input" placeholder="输入问题">
+<button onclick="send()">发送</button>
+
+<div id="chat"></div>
+
+<script>
+
+async function send(){
+
+let input=document.getElementById("input").value;
+
+let res=await fetch("https://api.coze.com/open_api/v2/chat",{
+method:"POST",
+headers:{
+"Content-Type":"application/json",
+"Authorization":"Bearer sat_GWjRzoiSDexgEoapkLkNoboUB7ED5DtPBlEIzv6GVCAVChlLftS9C0sa3ACy9mbX"
+},
+body:JSON.stringify({
+bot_id:"7605462028329123890",
+user:"123",
+query:input
+})
+})
+
+let data=await res.json()
+
+document.getElementById("chat").innerHTML+=
+"<p>你:"+input+"</p>"+
+"<p>AI:"+data.messages[0].content+"</p>"
+
+}
+
+</script>
+
+</body>
+</html>
